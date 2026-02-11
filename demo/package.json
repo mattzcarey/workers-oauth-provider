@@ -1,0 +1,14 @@
+{
+  "name": "oauth-audience-demo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev"
+  },
+  "dependencies": {
+    "@cloudflare/workers-oauth-provider": "file:.."
+  },
+  "devDependencies": {
+    "wrangler": "^4"
+  }
+}
