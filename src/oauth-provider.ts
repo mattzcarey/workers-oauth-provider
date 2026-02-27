@@ -1688,7 +1688,11 @@ class OAuthProviderImpl<Env = Cloudflare.Env> {
     // Per RFC 6749 Section 10.5, revoke all tokens issued from the first
     // exchange as a precaution against authorization code replay attacks.
     if (!grantData.authCodeId) {
-      await this.createOAuthHelpers(env).revokeGrant(grantId, userId);
+      try {
+        await this.createOAuthHelpers(env).revokeGrant(grantId, userId);
+      } catch {
+        // Best-effort revocation — always return invalid_grant per RFC 6749 §10.5
+      }
       return this.createErrorResponse('invalid_grant', 'Authorization code already used');
     }
 
